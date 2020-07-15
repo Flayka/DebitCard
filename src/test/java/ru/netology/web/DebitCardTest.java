@@ -39,26 +39,24 @@ public class DebitCardTest {
     @Test
     void shouldFillCorrectFormWithoutCssCelectors() {
         driver.get("http://localhost:9999");
-
         List<WebElement> elements = driver.findElements(By.className("input__control"));
         elements.get(0).sendKeys("Безухов Пьер");
         elements.get(1).sendKeys("+79876543210");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
-        String text = driver.findElement(By.className("Success_successBlock__2L3Cw")).getText();
+        String text = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText();
         assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
     }
 
     @Test
     void shouldFillCorrectForm() {
         driver.get("http://localhost:9999");
-
         WebElement form = driver.findElement(By.cssSelector("[action]"));
         form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Балконский Андрей");
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+71234567890");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.cssSelector(".button")).click();
-        String text = driver.findElement(By.className("Success_successBlock__2L3Cw")).getText();
+        String text = driver.findElement(By.cssSelector("[data-test-id='order-success']")).getText();
         assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
     }
 
@@ -113,7 +111,6 @@ public class DebitCardTest {
     @Test
     void shouldFillCorrectFormWithoutAgreement() {
         driver.get("http://localhost:9999");
-
         WebElement form = driver.findElement(By.cssSelector("[action]"));
         form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Балконский Андрей");
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+71234567890");
@@ -125,7 +122,6 @@ public class DebitCardTest {
     @Test
     void shouldNotFillName() {
         driver.get("http://localhost:9999");
-
         WebElement form = driver.findElement(By.cssSelector("[action]"));
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+71234567890");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
@@ -137,7 +133,6 @@ public class DebitCardTest {
     @Test
     void shouldNotFillPhone() {
         driver.get("http://localhost:9999");
-
         WebElement form = driver.findElement(By.cssSelector("[action]"));
         form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Балконский Андрей");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
@@ -149,7 +144,6 @@ public class DebitCardTest {
     @Test
     void shouldNotFillAny() {
         driver.get("http://localhost:9999");
-
         driver.findElement(By.cssSelector(".button")).click();
         String text = driver.findElement(By.cssSelector("[data-test-id=name] .input__sub")).getText();
         assertEquals("Поле обязательно для заполнения", text.trim());
